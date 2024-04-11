@@ -3,13 +3,14 @@ const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors'); // 确保已经安装了cors包
+const path = require('path');
 
 const app = express();
 const port = 3000;
 
 app.use(cors()); // 允许跨域请求
 app.use(bodyParser.json());
-app.use(express.static('public')); // 从 'public' 目录提供静态文件
+app.use(express.static(path.join(__dirname, 'public')));
 
 const apiClient = axios.create({
   baseURL: 'https://api.openai.com',
@@ -59,6 +60,8 @@ app.post('/chat', async (req, res) => {
 
 // 为根 URL 提供一个 GET 路由，用于发送前端页面
 app.get('/', (req, res) => {
+  console.log("11111",req)
+  console.log("11111")
   res.sendFile(__dirname + '/public/index.html'); // 确保路径正确指向您的 HTML 文件
 });
 
