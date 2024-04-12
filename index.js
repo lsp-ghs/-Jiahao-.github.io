@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// 更新API客户端配置
+
 const apiClient = axios.create({
   baseURL: 'https://u164241-a129-a540ed74.westb.seetacloud.com:8443/v1',
   headers: {
@@ -25,7 +25,7 @@ let conversation = [];
 async function chatWithGPT(message) {
   conversation.push({ role: "user", content: message });
   try {
-    // 更新API请求数据结构和URL
+   
     const response = await apiClient.post('/chat/completions', {
       model: "qwen",
       messages: conversation,
