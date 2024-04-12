@@ -148,7 +148,7 @@
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
             const data = await response.json();
-            updateChatWindow('ChatGPT', data.message);
+            updateChatWindow('Chat', data.message);
         } catch (error) {
             console.error('Error sending message:', error);
             updateChatWindow('Error', 'Unable to send message.');
