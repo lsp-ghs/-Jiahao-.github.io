@@ -16,7 +16,7 @@ const apiClient = axios.create({
   baseURL: 'https://u164241-a129-a540ed74.westb.seetacloud.com:8443/v1',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer sk-qPM72xKHUQBNhW1GJLtNociI1bBkKYAULkojnDIG45mnEUJs`
+    'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
   }
 });
 
@@ -72,7 +72,4 @@ app.post('/feedback', (req, res) => {
   console.log('Feedback received:', feedback);
   res.status(200).send('Feedback received');
 });
-  console.log('Feedback received:', feedback);
-  // 发送响应
-  res.status(200).send('Feedback received');
-});
+
