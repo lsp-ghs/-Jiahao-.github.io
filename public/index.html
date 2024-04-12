@@ -93,18 +93,7 @@
             clear: both;
         }
 
-        #feedbackButtons {
-            text-align: center;
-            margin-top: 15px;
-            clear: both; /* Added */
-        }
 
-        /* Added clear fix */
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
 
     </style>
 </head>
@@ -115,11 +104,7 @@
         <input type="text" id="userInput" placeholder="Type a message..." autocomplete="off">
         <button onclick="sendMessage()">Send</button>
         <button id="startRecordBtn" onclick="startRecording()">🎙</button> <!-- Voice recording button with mic emoji -->
-        <div id="feedbackButtons">
-            <p>Was this answer helpful?</p>
-            <button onclick="sendFeedback('positive')">Yes</button>
-            <button onclick="sendFeedback('negative')">No</button>
-        </div>
+
     </div>
 
     <script>
