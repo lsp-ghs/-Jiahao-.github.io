@@ -2,22 +2,22 @@ require('dotenv').config();
 const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // 确保已经安装了cors包
-const path = require('path');
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
 
-app.use(cors()); // 允许跨域请求
+app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
+// 更新API客户端配置
 const apiClient = axios.create({
-  baseURL: 'https://api.openai.com',
+  baseURL: 'https://u164241-a129-a540ed74.westb.seetacloud.com:8443/v1',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-  },
+    'Authorization': `Bearer sk-qPM72xKHUQBNhW1GJLtNociI1bBkKYAULkojnDIG45mnEUJs`
+  }
 });
 
 let conversation = [];
@@ -25,8 +25,9 @@ let conversation = [];
 async function chatWithGPT(message) {
   conversation.push({ role: "user", content: message });
   try {
-    const response = await apiClient.post('/v1/chat/completions', {
-      model: "gpt-3.5-turbo",
+    // 更新API请求数据结构和URL
+    const response = await apiClient.post('/chat/completions', {
+      model: "qwen",
       messages: conversation,
     });
     const reply = response.data.choices[0].message.content.trim();
@@ -46,10 +47,10 @@ app.post('/chat', async (req, res) => {
     let errorMessage = 'Unable to process your request at the moment.';
     if (error.response) {
       console.error('Error:', error.response.status, error.response.data);
-      errorMessage += ` OpenAI Error: ${error.response.data.error.message}`;
+      errorMessage += ` Error: ${error.response.data.error.message}`;
     } else if (error.request) {
       console.error('Error: No response received', error.request);
-      errorMessage += ' No response received from OpenAI.';
+      errorMessage += ' No response received.';
     } else {
       console.error('Error:', error.message);
       errorMessage += ` Request setup failed: ${error.message}`;
@@ -58,21 +59,19 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-// 为根 URL 提供一个 GET 路由，用于发送前端页面
 app.get('/', (req, res) => {
-  console.log("11111",req)
-  console.log("11111")
-  res.sendFile(__dirname + '/public/index.html'); // 确保路径正确指向您的 HTML 文件
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
 
-// 在 server.js 中
 app.post('/feedback', (req, res) => {
   const feedback = req.body.feedback;
-  // 处理反馈，比如保存到数据库
+  console.log('Feedback received:', feedback);
+  res.status(200).send('Feedback received');
+});
   console.log('Feedback received:', feedback);
   // 发送响应
   res.status(200).send('Feedback received');
