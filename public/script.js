@@ -36,7 +36,7 @@ document.getElementById('userInput').addEventListener('keypress', function(e) {
     }
 });
 
-// 确保浏览器支持语音识别功能
+// 
 if (window.SpeechRecognition || window.webkitSpeechRecognition) {
     const startRecordBtn = document.getElementById('startRecordBtn');
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
@@ -72,7 +72,7 @@ function sendFeedback(feedbackType) {
     // Implementation remains the same
 }
 
-// 确保在页面加载时显示教程模态框
+// 
 window.onload = function() {
     const tutorialModal = document.getElementById('tutorialModal');
     if (tutorialModal) {
@@ -80,7 +80,7 @@ window.onload = function() {
     }
 };
 
-// 确保在关闭教程时，教程模态框的显示被正确处理
+// 
 function closeTutorial() {
     const tutorialModal = document.getElementById('tutorialModal');
     if (tutorialModal) {
